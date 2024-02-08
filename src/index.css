@@ -1,0 +1,222 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+
+
+
+.parallax {
+    position: relative;
+    perspective: 1px;
+    height: 400px;
+    overflow: hidden;
+    overflow-y: auto;
+    transform: translateZ(-10px);
+    
+    display: flex;
+}
+
+.parallax__text {
+    font-size: 72px;
+    color: #cde4f7;
+    transform: translateZ(-2px) translateX(100px) translateY(200px) scale(3);
+    color: white;
+    height: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+wrapper {
+    flex: 1;
+}
+
+.imgline {
+    
+    background-image: url('./img/flowers.jpg');
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-position-x: center;
+    background-position-y: center;
+    min-height: 400px;
+    color: white;
+    font-size: 48px;
+    text-shadow: 1px 1px 2px #333;
+    display: flex;
+    
+}
+.imgline__text {
+    width: 1000px;
+    margin: auto auto 30px auto;
+    backdrop-filter:blur(4px);
+}
+h1 {
+    display: inline-block;
+    font-weight: normal;
+}
+
+nav {
+    flex: 1;
+    display: flex;
+    padding: 20px 0;
+    gap: 25px;
+    margin: 0;
+    width: auto;
+    box-shadow: rgba(129, 162, 182, 0.2) 0px 2px 18px 0px;
+    background-color: white;
+    z-index: 5;
+    position: sticky;
+    top: 0;
+}
+
+a {
+    text-decoration: none;
+    color: #444;
+    font-weight: 400;
+}
+
+nav a {
+    font-size: 16px;
+    line-height: 20px;
+    color: #222;
+    text-decoration: none;
+    transition: 0.2s linear all;
+
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+h2 {
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 1.2222222222222223;
+    letter-spacing: -0.2px;
+    font-weight: 400;
+    margin: 15px 0 0;
+    color: rgb(28, 32, 37);
+}
+
+
+.container {
+    width: 1000px;
+    margin: 0 auto;
+
+}
+
+.container_flex {
+    display: flex;
+    gap: 20px;
+}
+
+.column {
+    flex: 1;
+}
+
+.column_2 {
+    flex: 2;
+}
+.column_3 {
+    flex: 3;
+}
+.column_300 {
+    flex: 0;
+    width: 300px;
+    min-width: 300px;
+}
+.column_300 h2 {
+    margin-top: 0;
+}
+.geomap {
+    height: 500px;
+    margin-top: 15px;
+}
+
+article {
+    padding-bottom: 20px;
+}
+
+p {
+    box-sizing: border-box;
+    color: rgb(28, 32, 37);
+    color-scheme: light;
+    display: block;
+    margin: 15px 0 0;
+    font-size: 15px;
+    font-weight: 300;
+    word-break: break-word;
+    -webkit-font-smoothing: antialiased;
+    line-height: 20px;
+}
+
+p a {
+    color: black;
+}
+
+p span {
+    text-wrap: nowrap;
+    color: black;
+}
+.params {
+    display: flex;
+    padding-bottom: 5px;
+    font-size: 15px;
+}
+.prop {
+    display: block;
+    min-width: 160px;
+    width: 160px;
+    font-weight: 300;
+}
+
+.value {
+    font-weight: 400;
+    flex: 1;
+    padding-left: 15px;
+}
+
+footer {
+    padding: 15px 0;
+    box-shadow: rgba(129, 162, 182, 0.2) 0px 2px 18px 0px;
+    font-size: 12px;
+}
+
+@media (max-width:1024px) {
+
+    nav a {
+        font-size: 12px;
+    }
+
+    .container {
+        width: auto;
+        margin: 0 10px;
+    }
+
+    .container_flex {
+        flex-direction: column;
+        gap: 0;
+    }
+    .params {
+        flex-direction: column;
+    }
+
+    .geomap {
+        height: 300px;
+    }
+
+    footer {
+        font-size: 12px;
+    }
+}
