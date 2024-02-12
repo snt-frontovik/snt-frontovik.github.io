@@ -29,11 +29,18 @@ body {
     height: 100%;
 }
 
+input, select {
+    display: block;
+    flex: 1;
+}
 
 
-
-
-
+.qrcode {
+    width: 256px;
+    height: 256px;
+    display: none;
+    margin: 10px auto;
+}
 
 
 
@@ -44,7 +51,7 @@ wrapper {
 
 .imgline {
     
-    background-image: url('./img/flowers.jpg');
+    background-image: url('./img/flowers1.jpg');
     background-repeat: no-repeat;
     background-size:cover;
     background-position-x: center;
@@ -62,8 +69,10 @@ wrapper {
     backdrop-filter:blur(4px);
 }
 h1 {
-    display: inline-block;
+    display: block;
     font-weight: normal;
+    text-align: center;
+    padding-top: 30px;
 }
 
 nav {
@@ -182,6 +191,7 @@ p span {
 }
 
 .value {
+    display: flex;
     font-weight: 400;
     flex: 1;
     padding-left: 15px;
@@ -194,9 +204,14 @@ footer {
 }
 
 @media (max-width:1024px) {
-
-    nav a {
+    nav .container_flex {
+        flex-direction: row;
+        flex: 1;
+        
+    }
+    nav div a {
         font-size: 12px;
+        margin: 0 10px;
     }
 
     .container {

@@ -29,7 +29,7 @@
         </div>
     </nav>
     <article class="container" id="main">
-        <h2>О садоводстве</h2>
+        <h1>О садоводстве</h1>
         <p>
             СНТ образовано в 1994 году как Садоводческий кооператив "Фронтовик", на землях, выделенных под садоводство 
             администрацией города Мытищи. В 2004 году садоводство было зарегистрировано в ФНС как СНТ.
@@ -59,32 +59,84 @@
     </article>
     <div class="geomap" id="geomap"></div>
     <article class="container" id="gadener">
-        <h2>Садоводам</h2>
+        <h1>Садоводам</h1>
         <p>
             Для обустройства территории общего пользования, оплате электроэнергии за освещение, вывозу мусора, расчистке дорог от снега и прочим расходам,
-            СНТ несет затраты, согласованные <span class="value">Смете расходов</span>, принятой на общем собрании.
+            СНТ несет затраты, согласованные Смете расходов, принятой на общем собрании.
         </p>
+        <p></p>
 
     </article>
-
-    <article  class="container container_flex" id="docs">
+    <article class="container container_flex">
         <div class="column column_300">
-            <h2>Документы</h2>
+            <h2>Оплата взносов</h2>
         </div>
         <div class="column">
             <div class="params">
-                <span class="prop">Устав: </span>
-                <span class="value"><a target="_blank" href="/docs/charter202307scan.pdf">От 07.2023 (действующий)</a></span>
+                <span class="prop">Участок(участки)</span>
+                <span class="value">
+                    <select id="payment_area"></select>
+                </span>
             </div>
             <div class="params">
-                <span class="prop">Сметы расходов: </span>
-                <span class="value"><a target="_blank">01.01.2024 г. по 31.12.2024</a></span>
+                <span class="prop">Тип оплаты</span>
+                <span class="value">
+                    <select id="payment_type">
+                        <option value="ЧВ" selected>Членские взносы</option>
+                    </select>
+                </span>
+            </div>
+            <div class="params">
+                <span class="prop">Год</span>
+                <span class="value">
+                    <select id="payment_year"></select>
+                </span>
+            </div>
+            <div class="params">
+                <span class="prop">Сумма</span>
+                <span class="value">
+                    <input id="payment_sum" type="num" step='0.01' value='0.00' >
+                </span>
+            </div>
+            <div class="params">
+                <span class="prop">Собственник</span>
+                <span class="value">
+                    <input id="payment_owner" placeholder="Иванов Иван Иванович"/>
+                </span>
+            </div>
+            <div class="params">
+                <span class="prop">QR-код</span>
+                <span class="value">
+                    <input id="generate" type="button" value="Сгенерировать QR-код">
+                    <div id="qrcode" class="qrcode"></div>
+                </span>
             </div>
         </div>
     </article>
-    <article class="container container_flex" id="contacts">
+    <article class="container" id="docs">
+        <h1>Документы</h1>
+    </article>
+    <article class="container container_flex">
         <div class="column_300">
-            <h2>Контакты</h2>
+            <h2>Уставы</h2>
+        </div>
+        <div class="column">
+            <div class="column">
+                <div class="params">
+                    <span class="prop">Устав: </span>
+                    <span class="value"><a target="_blank" href="/docs/charter202307scan.pdf">От 07.2023 (действующий)</a></span>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <article  class="container" id="contacts">
+        <h1>Контакты</h1>
+    </article>
+    
+    <article class="container container_flex">
+        <div class="column_300">
+            <h2>Правление</h2>
         </div>
         <div class="column">
             <div class="params">
