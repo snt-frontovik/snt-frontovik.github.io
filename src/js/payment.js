@@ -18,7 +18,7 @@ class Payment {
         return a + area.square
     }, 0) 
     constructor() {
-        console.log(data_areas.flat(1));
+
         this.#_updateAreas();
         this.#_updateTypes();
 
