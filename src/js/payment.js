@@ -25,6 +25,7 @@ class Payment {
         this.#_el_gen.onclick = () => this.generate();
         
         this.#_el_type.onchange = () => {
+            this.clear();
             this.#_updateValue();
         }
         this.#_el_area.onchange = () => {
