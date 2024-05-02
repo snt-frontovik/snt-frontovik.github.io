@@ -1,23 +1,30 @@
 import QrCreator from 'qr-creator';
 import {payments_data} from './payment-data';
 import { createElement } from './utils';
-
+import {data_payments } from './data-payments.js';
+import { data_areas, data_zop_square } from './data-areas.js';
 class Payment {
     #_el_type = document.getElementById('payment_type');
-    #_el_year = document.getElementById('payment_year');
     #_el_area = document.getElementById('payment_area');
     #_el_owner = document.getElementById('payment_owner');
     #_el_qrcode = document.getElementById('qrcode');
     #_el_sum = document.getElementById('payment_sum');
     #_el_gen = document.getElementById('generate');
 
+    #total_owners = data_areas.length;
+    #total_areas = data_areas.flat(1).length;
+    
+    #total_squares = data_areas.flat(1).reduce((a, area) => {
+        return a + area.square
+    }, 0) 
     constructor() {
+        console.log(data_areas.flat(1));
         this.#_updateAreas();
-        this.#_updateYears();
+        this.#_updateTypes();
 
         this.#_el_gen.onclick = () => this.generate();
-        this.#_el_year.onchange = () => {
-            this.clear();
+        
+        this.#_el_type.onchange = () => {
             this.#_updateValue();
         }
         this.#_el_area.onchange = () => {
@@ -30,30 +37,33 @@ class Payment {
             this.clear();
         }
         this.#_el_sum.onkeyup = () => this.clear();
-        this.#_el_owner.value = localStorage.getItem('payment_owner');
+        this.#_el_owner.value = localStorage.getItem('payment_owner') || '';
         this.#_updateValue();
+    }
+
+    #_updateTypes() {
+        data_payments.forEach((payment, i) => {
+            createElement('option', {value: i, textContent: payment.title }, this.#_el_type);
+        });
     }
 
     #_updateAreas() {
         this.#_el_area.innerHTML = '';
-        payments_data.areas.forEach(areas => {
+        data_areas.forEach((areas, i) => {
            
             const nums = areas.map(area => {
                 return area.num + ' (' + area.square + ' м.кв)'
             }).join(', ');
-            createElement('option', {value: areas[0].num, textContent: nums }, this.#_el_area);
+            createElement('option', {value: i, textContent: nums }, this.#_el_area);
         })
         this.#_el_area.value = localStorage.getItem('payment_area') || this.#_el_area.value;
     }
 
-    #_updateYears() {
-        payments_data.regular.forEach(period => {
-            createElement('option', {value: period.year, textContent: period.year }, this.#_el_year);
-        });
-    }
+    
 
     update() {
-        const areas = payments_data.areas.find(areas => areas[0].num === this.#_el_area.value);
+        const areas = data_areas[parseInt(this.#_el_area.value)];
+        const payment = data_payments[parseInt(this.#_el_type.value)];
         const nums = areas.map(area => {
             return area.num
         }).join(', ');
@@ -65,7 +75,7 @@ class Payment {
             BankName: 'ПАО СБЕРБАНК',
             BIC: '044525225',
             CorrespAcc: '30101810400000000225',
-            Purpose: this.#_el_type.value + ';' + this.#_el_year.value + ';' + nums + ';' + this.#_el_owner.value,
+            Purpose: payment.value + ';' + nums + ';' + this.#_el_owner.value,
             sum: this.#_el_sum.value * 100
         }
         const parts = []
@@ -86,11 +96,22 @@ class Payment {
     }
 
     #_updateValue() {
-        const year = this.#_el_year.value;
-        const area = this.#_el_area.value;
-        const period = payments_data.regular.find(p => p.year === year);
-        const payment = period.payments.find(p => p.area === area);
-        this.#_el_sum.value = payment.sum.toFixed(2);
+        //const year = this.#_el_year.value;
+        const areas = data_areas[parseInt(this.#_el_area.value)];
+        const payment = data_payments[parseInt(this.#_el_type.value)];
+
+        const owner_squares = areas.reduce((a, area) => {
+                return a + area.square
+        }, 0);
+        
+
+        const value = 
+            payment.owners / this.#total_owners +                   // Исходя из собственников
+            payment.squares / this.#total_squares * owner_squares +
+            payment.counts / this.#total_areas * areas.length       // Исходя из участков
+
+
+        this.#_el_sum.value = value.toFixed(2);
     }
 
     generate() {

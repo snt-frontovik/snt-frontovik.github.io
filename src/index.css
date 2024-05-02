@@ -149,7 +149,7 @@ h2 {
     margin-top: 0;
 }
 .geomap {
-    height: 500px;
+    height: 600px;
     margin-top: 15px;
 }
 
@@ -227,9 +227,6 @@ footer {
         flex-direction: column;
     }
 
-    .geomap {
-        height: 300px;
-    }
 
     footer {
         font-size: 12px;

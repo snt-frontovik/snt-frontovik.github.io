@@ -44,7 +44,7 @@ class Geo {
             style: 'mapbox://styles/mapbox/satellite-streets-v12',
             center: [37.72862595729967, 56.50241371285557],
             zoom: 14,
-            scrollZoom: false
+            scrollZoom: true
         });
 
         this.#_geomap.scrollZoom.disable();

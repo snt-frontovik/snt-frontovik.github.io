@@ -16,9 +16,10 @@ export const geo_layers = [
         'layout': {},
         'paint': {
             'line-color': '#0F0',
-            'line-width': 1
+            'line-width': 3
         }
     },
+    
     {
         'id': 'poi-labels',
         'type': 'symbol',
