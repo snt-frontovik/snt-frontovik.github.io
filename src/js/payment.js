@@ -4,7 +4,6 @@ import { createElement } from './utils';
 import {data_payments } from './data-payments.js';
 import { data_areas, data_zop_square } from './data-areas.js';
 class Payment {
-    #_el_type = document.getElementById('payment_type');
     #_el_area = document.getElementById('payment_area');
     #_el_owner = document.getElementById('payment_owner');
     #_el_qrcode = document.getElementById('qrcode');
@@ -20,17 +19,13 @@ class Payment {
     constructor() {
 
         this.#_updateAreas();
-        this.#_updateTypes();
+        //this.#_updateTypes();
 
         this.#_el_gen.onclick = () => this.generate();
         
-        this.#_el_type.onchange = () => {
-            this.clear();
-            this.#_updateValue();
-        }
+
         this.#_el_area.onchange = () => {
             this.clear();
-            this.#_updateValue();
             localStorage.setItem('payment_area', this.#_el_area.value);
         }
         this.#_el_owner.onkeyup = () => {
@@ -39,14 +34,10 @@ class Payment {
         }
         this.#_el_sum.onkeyup = () => this.clear();
         this.#_el_owner.value = localStorage.getItem('payment_owner') || '';
-        this.#_updateValue();
+
     }
 
-    #_updateTypes() {
-        data_payments.forEach((payment, i) => {
-            createElement('option', {value: i, textContent: payment.title }, this.#_el_type);
-        });
-    }
+
 
     #_updateAreas() {
         this.#_el_area.innerHTML = '';
@@ -64,10 +55,12 @@ class Payment {
 
     update() {
         const areas = data_areas[parseInt(this.#_el_area.value)];
-        const payment = data_payments[parseInt(this.#_el_type.value)];
-        const nums = areas.map(area => {
+        const payment = 'Членские взносы;';
+        console.log(areas);
+        const areas_numbers = areas.map(area => {
             return area.num
         }).join(', ');
+        console.log(areas_numbers);
         const data = {
             ST00012: null,
             Name: 'СНТ "ФРОНТОВИК"',
@@ -76,7 +69,7 @@ class Payment {
             BankName: 'ПАО СБЕРБАНК',
             BIC: '044525225',
             CorrespAcc: '30101810400000000225',
-            Purpose: payment.value + ';' + nums + ';' + this.#_el_owner.value,
+            Purpose: payment + '; уч. ' + areas_numbers + ';' + this.#_el_owner.value,
             sum: this.#_el_sum.value * 100
         }
         const parts = []
@@ -96,24 +89,7 @@ class Payment {
           }, this.#_el_qrcode);
     }
 
-    #_updateValue() {
-        //const year = this.#_el_year.value;
-        const areas = data_areas[parseInt(this.#_el_area.value)];
-        const payment = data_payments[parseInt(this.#_el_type.value)];
-
-        const owner_squares = areas.reduce((a, area) => {
-                return a + area.square
-        }, 0);
-        
-
-        const value = 
-            payment.owners / this.#total_owners +                   // Исходя из собственников
-            payment.squares / this.#total_squares * owner_squares +
-            payment.counts / this.#total_areas * areas.length       // Исходя из участков
-
-
-        this.#_el_sum.value = value.toFixed(2);
-    }
+ 
 
     generate() {
         this.#_el_gen.style.display='none';
